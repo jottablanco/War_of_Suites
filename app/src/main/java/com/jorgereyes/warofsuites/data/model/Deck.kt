@@ -1,6 +1,6 @@
 package com.jorgereyes.warofsuites.data.model
 
-import com.jorgereyes.warofsuites.data.repository.CardBuilder
+import com.jorgereyes.warofsuites.data.dataUtils.CardBuilder
 
 class Deck(cardBuilder: CardBuilder) {
   private var deck: MutableList<Card> = mutableListOf()

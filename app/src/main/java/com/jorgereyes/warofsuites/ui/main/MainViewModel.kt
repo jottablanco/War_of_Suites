@@ -1,14 +1,26 @@
 package com.jorgereyes.warofsuites.ui.main
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.jorgereyes.warofsuites.data.model.*
-import com.jorgereyes.warofsuites.data.repository.CardBuilder
+import com.jorgereyes.warofsuites.data.dataUtils.CardBuilder
+import com.jorgereyes.warofsuites.domain.usecase.GetScoresUseCase
+import com.jorgereyes.warofsuites.domain.usecase.SaveWinnerUseCase
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel constructor(
+  application: Application,
+  private val getScoresUseCase: GetScoresUseCase,
+  private val saveWinnerUseCase: SaveWinnerUseCase
+) :
+  AndroidViewModel(application) {
 
   private val cardBuilder = CardBuilder()
   private var deck: Deck = Deck(cardBuilder)
-  var suitesValueMap : Map<Int, SuiteName> = mutableMapOf()
+  var suitesValueMap: Map<Int, SuiteName> = mutableMapOf()
   private var player1Score: MutableList<Card> = mutableListOf()
   private var player2Score: MutableList<Card> = mutableListOf()
   private var player1Deck: MutableList<Card> = mutableListOf()
@@ -49,13 +61,13 @@ class MainViewModel : ViewModel() {
     val player1Card: Card
     val player2Card: Card
     var cardsMap = mutableMapOf<Player, Card>()
-    when (player) {
-      Player.PLAYER_1 -> {
+    when (player.playerTag) {
+      PlayerName.PLAYER_1 -> {
         player1Card = player1Deck.first()
         player1Deck.remove(player1Card)
         cardsMap[player] = player1Card
       }
-      Player.PLAYER_2 -> {
+      PlayerName.PLAYER_2 -> {
         player2Card = player2Deck.first()
         player2Deck.remove(player2Card)
         cardsMap[player] = player2Card
@@ -65,11 +77,11 @@ class MainViewModel : ViewModel() {
   }
 
   fun addToPlayersDiscardsPile(player1Card: Card, player2Card: Card, player: Player) {
-    when (player) {
-      Player.PLAYER_1 -> {
+    when (player.playerTag) {
+      PlayerName.PLAYER_1 -> {
         player1Score.addAll(listOf(player1Card, player2Card))
       }
-      Player.PLAYER_2 -> {
+      PlayerName.PLAYER_2 -> {
         player2Score.addAll(listOf(player1Card, player2Card))
       }
     }
@@ -77,9 +89,9 @@ class MainViewModel : ViewModel() {
 
 
   fun getPlayersRoundScore(player: Player): Int {
-    return when (player) {
-      Player.PLAYER_1 -> player1Score.size
-      Player.PLAYER_2 -> player2Score.size
+    return when (player.playerTag) {
+      PlayerName.PLAYER_1 -> player1Score.size
+      PlayerName.PLAYER_2 -> player2Score.size
     }
   }
 
@@ -87,11 +99,11 @@ class MainViewModel : ViewModel() {
     return player1Deck.size == 0 && player2Deck.size == 0
   }
 
-  fun getWinner(): Player {
+  fun getWinner(): PlayerName {
     return if (player1Score.size > player2Score.size) {
-      Player.PLAYER_1
+      PlayerName.PLAYER_1
     } else {
-      Player.PLAYER_2
+      PlayerName.PLAYER_2
     }
   }
 
@@ -106,9 +118,19 @@ class MainViewModel : ViewModel() {
   }
 
   fun getPlayerDeckSize(player: Player): Int {
-    return when (player) {
-      Player.PLAYER_1 -> player1Deck.size
-      Player.PLAYER_2 -> player2Deck.size
+    return when (player.playerTag) {
+      PlayerName.PLAYER_1 -> player1Deck.size
+      PlayerName.PLAYER_2 -> player2Deck.size
+    }
+  }
+
+  fun saveGameWinner(player: Player) = viewModelScope.launch {
+    saveWinnerUseCase.execute(player)
+  }
+
+  fun getScores() = liveData {
+    getScoresUseCase.execute().collect{
+      emit(it)
     }
   }
 

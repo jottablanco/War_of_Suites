@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.jorgereyes.warofsuites.R
 import com.jorgereyes.warofsuites.data.model.Card
 import com.jorgereyes.warofsuites.data.model.Player
@@ -46,8 +47,8 @@ class MainActivity : AppCompatActivity() {
     player_1_deck_counter.text = mainViewModel.getPlayerDeckSize(Player.PLAYER_1).toString()
     player_2_deck_counter.text = mainViewModel.getPlayerDeckSize(Player.PLAYER_2).toString()
 
-    player_1_counter.text = "0"
-    player_2_counter.text = "0"
+    player_1_counter.text = getString(R.string.start_counter)
+    player_2_counter.text = getString(R.string.start_counter)
 
     setupSuitesValeUI()
 
@@ -57,18 +58,32 @@ class MainActivity : AppCompatActivity() {
         val player1Card = mainViewModel.dealCard(Player.PLAYER_1)[Player.PLAYER_1]
         val player2Card = mainViewModel.dealCard(Player.PLAYER_2)[Player.PLAYER_2]
 
-        player_1_dealt_card.setImageResource(player1Card!!.image)
-        player_2_dealt_card.setImageResource(player2Card!!.image)
+        player1Card?.let {
+          player_1_dealt_card.setImageResource(it.image)
+        } ?: kotlin.run {
+          displayError()
+        }
+
+        player2Card?.let {
+          player_2_dealt_card.setImageResource(it.image)
+        } ?: kotlin.run {
+          displayError()
+        }
+
 
         player_1_deck_counter.text = mainViewModel.getPlayerDeckSize(Player.PLAYER_1).toString()
         player_2_deck_counter.text = mainViewModel.getPlayerDeckSize(Player.PLAYER_2).toString()
 
-        getRoundWinner(player1Card, player2Card)
+        getRoundWinner(player1Card!!, player2Card!!)
       } else {
         isGameOver()
       }
 
     }
+  }
+
+  private fun displayError() {
+    Snackbar.make(this@MainActivity, parent_container, getString(R.string.deal_card_error), Snackbar.LENGTH_SHORT).show()
   }
 
   private fun getRoundWinner(player1Card: Card, player2Card: Card) {
@@ -103,7 +118,11 @@ class MainActivity : AppCompatActivity() {
 
   private fun isGameOver() {
 
-    val message = "${mainViewModel.getWinner()} won the game with ${mainViewModel.getPlayersRoundScore(mainViewModel.getWinner())} cards"
+    val message = getString(
+      R.string.game_winner_label,
+      mainViewModel.getWinner(),
+      mainViewModel.getPlayersRoundScore(mainViewModel.getWinner()).toString()
+    )
 
     if (mainViewModel.checkForGameOver()) {
 
@@ -111,13 +130,13 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(it)
         builder.apply {
           setPositiveButton(
-            "Restart"
+            getString(R.string.game_over_dialog_restart_btn_label)
           ) { _, _ ->
             mainViewModel.restartGame()
             setupUI()
           }
           setMessage(message)
-          setTitle("Game Over!")
+          setTitle(getString(R.string.game_over_dialog_title))
         }
         builder.create()
       }
@@ -128,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
   private fun setupSuitesValeUI() {
     for (item in suiteValuesMap) {
-      if (item.key == 4) {
+      if (item.key == KEY_4) {
         when (item.value) {
           SuiteName.CLUBS -> icon_1.setImageResource(R.mipmap.club_ic)
           SuiteName.HEARTS -> icon_1.setImageResource(R.mipmap.hearth_ic)
@@ -136,7 +155,7 @@ class MainActivity : AppCompatActivity() {
           SuiteName.DIAMONDS -> icon_1.setImageResource(R.mipmap.diamond_ic)
         }
       }
-      if (item.key == 3) {
+      if (item.key == KEY_3) {
         when (item.value) {
           SuiteName.CLUBS -> icon_2.setImageResource(R.mipmap.club_ic)
           SuiteName.HEARTS -> icon_2.setImageResource(R.mipmap.hearth_ic)
@@ -144,7 +163,7 @@ class MainActivity : AppCompatActivity() {
           SuiteName.DIAMONDS -> icon_2.setImageResource(R.mipmap.diamond_ic)
         }
       }
-      if (item.key == 2) {
+      if (item.key == KEY_2) {
         when (item.value) {
           SuiteName.CLUBS -> icon_3.setImageResource(R.mipmap.club_ic)
           SuiteName.HEARTS -> icon_3.setImageResource(R.mipmap.hearth_ic)
@@ -152,7 +171,7 @@ class MainActivity : AppCompatActivity() {
           SuiteName.DIAMONDS -> icon_3.setImageResource(R.mipmap.diamond_ic)
         }
       }
-      if (item.key == 1) {
+      if (item.key == KEY_1) {
         when (item.value) {
           SuiteName.CLUBS -> icon_4.setImageResource(R.mipmap.club_ic)
           SuiteName.HEARTS -> icon_4.setImageResource(R.mipmap.hearth_ic)
@@ -161,6 +180,13 @@ class MainActivity : AppCompatActivity() {
         }
       }
     }
+  }
+
+  companion object {
+    private const val KEY_1 = 1
+    private const val KEY_2 = 2
+    private const val KEY_3 = 3
+    private const val KEY_4 = 4
   }
 
 }

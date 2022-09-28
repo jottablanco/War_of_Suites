@@ -1,5 +1,17 @@
 <resources>
-    <string name="app_name">War of Suites</string>
-    <string name="jugador_1_desc">Jugador 1</string>
-    <string name="deal_label">DEAL!</string>
+
+  <!-- General Strings -->
+  <string name="app_name">War of Suites</string>
+  <string name="player_1_desc">Player 1</string>
+  <string name="player_2_desc">Player 2</string>
+  <string name="deal_label">DEAL CARD!</string>
+  <string name="start_counter">0</string>
+  <string name="game_winner_label">%1s won the game with %2s cards</string>
+  <string name="game_over_dialog_restart_btn_label">Restart</string>
+  <string name="game_over_dialog_title">Game Over!</string>
+  <string name="p1_tag">P1</string>
+  <string name="p2_tag">P2</string>
+
+  <!-- Errors -->
+  <string name="deal_card_error">Oops!, deck failure. You\'ve got the limbo card!</string>
 </resources>

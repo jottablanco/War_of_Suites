@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/parent_container"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/mat_color"
-  android:padding="20dp"
+  android:padding="@dimen/dimen_20"
   tools:context=".ui.view.MainActivity">
 
   <LinearLayout
@@ -21,9 +22,9 @@
       android:id="@+id/player_1_dealt_card"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="20dp"
-      android:layout_marginEnd="10dp"
-      android:contentDescription="@string/jugador_1_desc"
+      android:layout_marginStart="@dimen/dimen_20"
+      android:layout_marginEnd="@dimen/dimen_10"
+      android:contentDescription="@string/player_1_desc"
       android:src="@mipmap/astronaut"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
@@ -32,8 +33,8 @@
       android:id="@+id/player_2_dealt_card"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="20dp"
-      android:contentDescription="@string/jugador_1_desc"
+      android:layout_marginEnd="@dimen/dimen_20"
+      android:contentDescription="@string/player_2_desc"
       android:src="@mipmap/astronaut"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +45,7 @@
     android:id="@+id/poker_icons_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
+    android:layout_marginTop="@dimen/dimen_15"
     android:orientation="horizontal"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -52,26 +53,26 @@
 
     <ImageView
       android:id="@+id/icon_1"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
       tools:src="@mipmap/diamond_ic" />
 
     <ImageView
       android:id="@+id/icon_2"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
       tools:src="@mipmap/chip" />
 
     <ImageView
       android:id="@+id/icon_3"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
       tools:src="@mipmap/chip" />
 
     <ImageView
       android:id="@+id/icon_4"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
       tools:src="@mipmap/chip" />
   </LinearLayout>
 

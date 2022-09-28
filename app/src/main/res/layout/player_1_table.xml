@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <ImageView
+    android:id="@+id/player_1_deck"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"
+    android:contentDescription="@string/jugador_1_desc"
+    android:rotation="15"
+    android:src="@mipmap/astronaut"
+    app:layout_constraintBottom_toTopOf="@id/player_1_discard_deck"
+    app:layout_constraintStart_toStartOf="parent" />
+
+  <ImageView
+    android:id="@+id/player_1_discard_deck"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/discard_bg"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+
+  <ImageView
+    android:id="@+id/player1_tag_bg"
+    android:layout_width="55dp"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/chip"
+    app:layout_constraintBottom_toBottomOf="@id/player_1_discard_deck"
+    app:layout_constraintTop_toTopOf="@id/player_1_deck"
+    app:layout_constraintStart_toEndOf="@id/player_1_deck" />
+
+  <TextView
+    android:id="@+id/player_1_label"
+    style="@style/TextAppearance.Material3.HeadlineSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="P1"
+    android:textColor="@color/deal_icon_color"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="@id/player1_tag_bg"
+    app:layout_constraintEnd_toEndOf="@id/player1_tag_bg"
+    app:layout_constraintTop_toTopOf="@id/player1_tag_bg"
+    app:layout_constraintBottom_toBottomOf="@id/player1_tag_bg"/>
+
+  <TextView
+    android:id="@+id/player_1_counter"
+    style="@style/TextAppearance.Material3.HeadlineLarge"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/text_color"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="@id/player_1_discard_deck"
+    app:layout_constraintEnd_toEndOf="@id/player_1_discard_deck"
+    app:layout_constraintStart_toStartOf="@id/player_1_discard_deck"
+    app:layout_constraintTop_toTopOf="@id/player_1_discard_deck"
+    tools:text="1" />
+
+  <TextView
+    android:id="@+id/player_1_deck_counter"
+    style="@style/TextAppearance.Material3.HeadlineLarge"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:shadowColor="@color/mat_color"
+    android:textColor="@color/deal_icon_color"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="@id/player_1_deck"
+    app:layout_constraintEnd_toEndOf="@id/player_1_deck"
+    app:layout_constraintStart_toStartOf="@id/player_1_deck"
+    tools:text="1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

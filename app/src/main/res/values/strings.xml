@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">War of Suites</string>
+    <string name="jugador_1_desc">Jugador 1</string>
+    <string name="deal_label">DEAL!</string>
+</resources>

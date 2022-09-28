@@ -1,4 +1,4 @@
-package com.jorgereyes.warofsuites.data.repository
+package com.jorgereyes.warofsuites.data.dataUtils
 
 import com.jorgereyes.warofsuites.R
 import com.jorgereyes.warofsuites.data.model.Card
@@ -12,13 +12,13 @@ class CardBuilder {
     val cards = mutableListOf<Card>()
 
     for (suite in SuiteName.values()) {
-      for (i in 2..14) {
+      for (value in LOWEST_CARD_VALUE..HIGHEST_CARD_VALUE) {
         cards.add(
           Card(
-            i,
-            getCardName(i, suite),
+            value,
+            getCardName(value, suite),
             Suite(suite),
-            getCardImage(i, suite)
+            getCardImage(value, suite)
           )
         )
       }
@@ -133,5 +133,10 @@ class CardBuilder {
         throw Exception("Yikes!, this should not happen")
       }
     }
+  }
+
+  companion object {
+    private const val LOWEST_CARD_VALUE = 2
+    private const val HIGHEST_CARD_VALUE = 14
   }
 }

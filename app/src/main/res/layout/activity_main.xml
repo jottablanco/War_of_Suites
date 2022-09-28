@@ -6,7 +6,7 @@
   android:layout_height="match_parent"
   android:background="@color/mat_color"
   android:padding="20dp"
-  tools:context=".MainActivity">
+  tools:context=".ui.view.MainActivity">
 
   <LinearLayout
     android:id="@+id/dealt_cards_container"

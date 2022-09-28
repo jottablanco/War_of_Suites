@@ -1,11 +1,14 @@
-package com.jorgereyes.warofsuites
+package com.jorgereyes.warofsuites.ui.view
 
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProviders
+import com.jorgereyes.warofsuites.R
 import com.jorgereyes.warofsuites.data.model.Card
 import com.jorgereyes.warofsuites.data.model.Player
 import com.jorgereyes.warofsuites.data.model.SuiteName
+import com.jorgereyes.warofsuites.ui.base.ViewModelFactory
 import com.jorgereyes.warofsuites.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.player_1_table.*
@@ -13,18 +16,27 @@ import kotlinx.android.synthetic.main.player_2_table.*
 
 class MainActivity : AppCompatActivity() {
 
-  private val mainViewModel = MainViewModel()
+  private lateinit var mainViewModel: MainViewModel
   private lateinit var suiteValuesMap: MutableMap<Int, SuiteName>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+    setupViewModel()
+
     mainViewModel.shuffleMainDeck()
     suiteValuesMap = mainViewModel.defineSuiteValue()
     mainViewModel.suitesValueMap = suiteValuesMap
     mainViewModel.createPlayersDecks()
 
     setupUI()
+  }
+
+  private fun setupViewModel() {
+    mainViewModel = ViewModelProviders.of(
+      this@MainActivity,
+      ViewModelFactory()
+    )[MainViewModel::class.java]
   }
 
   private fun setupUI() {

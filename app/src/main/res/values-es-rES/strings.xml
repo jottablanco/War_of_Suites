@@ -11,6 +11,8 @@
   <string name="game_over_dialog_title">Juego Finalizado!</string>
   <string name="p1_tag">J1</string>
   <string name="p2_tag">J2</string>
+  <string name="scores_screen_label">Historial de Ganadores</string>
+  <string name="empty_scores_message">Juega algunas rondas para ver el historial de ganadores</string>
 
   <!-- Errors -->
   <string name="deal_card_error">Hubo un error en la baraja!</string>

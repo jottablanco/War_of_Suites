@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/parent_container"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_marginStart="@dimen/dimen_10"
+  android:layout_marginTop="@dimen/dimen_10"
+  android:layout_marginEnd="@dimen/dimen_10"
+  android:background="@color/mat_color">
+
+  <ImageView
+    android:id="@+id/iv_logo1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/wallapop_logo"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/player_2_table_layout" />
+
+  <LinearLayout
+    android:id="@+id/poker_icons_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_15"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/dealt_cards_container">
+
+    <ImageView
+      android:id="@+id/icon_1"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
+      tools:src="@mipmap/diamond_ic" />
+
+    <ImageView
+      android:id="@+id/icon_2"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
+      tools:src="@mipmap/chip" />
+
+    <ImageView
+      android:id="@+id/icon_3"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
+      tools:src="@mipmap/chip" />
+
+    <ImageView
+      android:id="@+id/icon_4"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
+      tools:src="@mipmap/chip" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/dealt_cards_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+      android:id="@+id/player_1_dealt_card"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/dimen_20"
+      android:layout_marginEnd="@dimen/dimen_10"
+      android:contentDescription="@string/player_1_desc"
+      android:src="@mipmap/astronaut"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+      android:id="@+id/player_2_dealt_card"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/dimen_20"
+      android:contentDescription="@string/player_2_desc"
+      android:src="@mipmap/astronaut"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  </LinearLayout>
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/deal_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/deal_label"
+    android:textColor="@color/text_color"
+    app:backgroundTint="@color/deal_btn_color"
+    app:icon="@drawable/ic_deal_24"
+    app:iconTint="@color/deal_icon_color"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/winners_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/deal_btn_color"
+    app:cardCornerRadius="@dimen/dimen_10"
+    app:cardElevation="@dimen/dimen_20"
+    app:layout_constraintBottom_toTopOf="@id/deal_btn"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/poker_icons_container"
+    app:rippleColor="@color/deal_icon_color">
+
+    <ImageView
+      android:id="@+id/winners_iv"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dimen_10"
+      android:src="@mipmap/ic_trophy" />
+
+  </com.google.android.material.card.MaterialCardView>
+
+
+  <include
+    android:id="@+id/player_2_table_layout"
+    layout="@layout/player_2_table"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toEndOf="@id/dealt_cards_container"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <include
+    android:id="@+id/player_1_table_layout"
+    layout="@layout/player_1_table"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

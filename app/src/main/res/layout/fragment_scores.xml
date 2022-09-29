@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/mat_color"
+  android:layout_marginStart="@dimen/dimen_20"
+  android:layout_marginEnd="@dimen/dimen_20"
+  tools:context=".presentation.ui.view.ScoresFragment">
+
+  <TextView
+    android:id="@+id/scores_screen_title"
+    style="@style/TextAppearance.Material3.HeadlineLarge"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_10"
+    android:text="@string/scores_screen_label"
+    android:textColor="@color/text_color"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/scores_empty_message"
+    style="@style/TextAppearance.Material3.HeadlineLarge"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_10"
+    android:text="@string/empty_scores_message"
+    android:textColor="@color/text_color"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:visibility="visible"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_scores"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/scores_screen_title" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,8 @@
   <string name="game_over_dialog_title">Game Over!</string>
   <string name="p1_tag">P1</string>
   <string name="p2_tag">P2</string>
+  <string name="scores_screen_label">Rounds History</string>
+  <string name="empty_scores_message">It\'s lonely here! Play some games to see the sweet history of your matches</string>
 
   <!-- Errors -->
   <string name="deal_card_error">Oops!, deck failure. You\'ve got the limbo card!</string>

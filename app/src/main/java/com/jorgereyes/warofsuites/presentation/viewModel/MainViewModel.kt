@@ -1,12 +1,11 @@
-package com.jorgereyes.warofsuites.ui.main
+package com.jorgereyes.warofsuites.presentation.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.jorgereyes.warofsuites.data.model.*
 import com.jorgereyes.warofsuites.data.dataUtils.CardBuilder
+import com.jorgereyes.warofsuites.data.model.*
 import com.jorgereyes.warofsuites.domain.usecase.GetScoresUseCase
 import com.jorgereyes.warofsuites.domain.usecase.SaveWinnerUseCase
 import kotlinx.coroutines.launch
@@ -52,6 +51,8 @@ class MainViewModel constructor(
   }
 
   fun createPlayersDecks() {
+    player1Deck.clear()
+    player2Deck.clear()
     val subLists = deck.getMainDeck().chunked(26)
     player1Deck.addAll(subLists[0])
     player2Deck.addAll(subLists[1])
@@ -128,8 +129,8 @@ class MainViewModel constructor(
     saveWinnerUseCase.execute(player)
   }
 
-  fun getScores() = liveData {
-    getScoresUseCase.execute().collect{
+  fun getScoresHistory() = liveData {
+    getScoresUseCase.execute().collect {
       emit(it)
     }
   }

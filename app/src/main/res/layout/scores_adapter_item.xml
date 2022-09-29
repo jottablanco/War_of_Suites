@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/score_item"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:backgroundTint="@color/deal_btn_color"
+  android:padding="@dimen/dimen_20"
+  android:layout_marginTop="@dimen/dimen_10"
+  app:cardCornerRadius="@dimen/dimen_10"
+  app:cardElevation="@dimen/dimen_30">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_10">
+
+    <ImageView
+      android:id="@+id/iv_icon"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
+      android:layout_marginStart="@dimen/dimen_55"
+      android:src="@mipmap/ic_trophy"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+      android:id="@+id/iv_card_counter_icon"
+      android:layout_width="@dimen/dimen_30"
+      android:layout_height="@dimen/dimen_30"
+      android:layout_marginEnd="@dimen/dimen_10"
+      android:src="@mipmap/ic_launcher"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/card_counter_tv"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/player_tag"
+      style="@style/TextAppearance.Material3.HeadlineMedium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/dimen_10"
+      android:textColor="@color/text_color"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@id/iv_icon"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="@string/player_2_desc" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/card_counter_tv"
+      style="@style/TextAppearance.Material3.HeadlineMedium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/dimen_55"
+      android:textColor="@color/text_color"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="30 Cards" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
+
+

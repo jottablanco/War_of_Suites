@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jorgereyes.warofsuites.domain.usecase.GetScoresUseCase
 import com.jorgereyes.warofsuites.domain.usecase.SaveWinnerUseCase
-import com.jorgereyes.warofsuites.ui.main.MainViewModel
 
 class MainViewModelFactory(
   private val application: Application,

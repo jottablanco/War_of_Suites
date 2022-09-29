@@ -1,51 +1,52 @@
-package com.jorgereyes.warofsuites.ui.view
+package com.jorgereyes.warofsuites.presentation.ui.view
 
 import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.jorgereyes.warofsuites.R
 import com.jorgereyes.warofsuites.data.model.Card
 import com.jorgereyes.warofsuites.data.model.Player
 import com.jorgereyes.warofsuites.data.model.PlayerName
 import com.jorgereyes.warofsuites.data.model.SuiteName
-import com.jorgereyes.warofsuites.presentation.viewModel.MainViewModelFactory
-import com.jorgereyes.warofsuites.ui.main.MainViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
+import com.jorgereyes.warofsuites.presentation.viewModel.MainViewModel
+import kotlinx.android.synthetic.main.fragment_game.*
 import kotlinx.android.synthetic.main.player_1_table.*
 import kotlinx.android.synthetic.main.player_2_table.*
 import java.util.*
-import javax.inject.Inject
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-
-  @Inject
-  lateinit var factory: MainViewModelFactory
+class GameFragment : Fragment() {
 
   private lateinit var mainViewModel: MainViewModel
+
   private lateinit var suiteValuesMap: MutableMap<Int, SuiteName>
 
   private val player1 = Player(id = UUID.randomUUID(), PlayerName.PLAYER_1)
   private val player2 = Player(id = UUID.randomUUID(), PlayerName.PLAYER_2)
 
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-    setupViewModel()
 
+  }
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    // Inflate the layout for this fragment
+    return inflater.inflate(R.layout.fragment_game, container, false)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    mainViewModel = (activity as MainActivity).mainViewModel
     mainViewModel.shuffleMainDeck()
     suiteValuesMap = mainViewModel.defineSuiteValue()
     mainViewModel.suitesValueMap = suiteValuesMap
     mainViewModel.createPlayersDecks()
-
     setupUI()
-  }
-
-  private fun setupViewModel() {
-    mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
   }
 
   private fun setupUI() {
@@ -59,6 +60,10 @@ class MainActivity : AppCompatActivity() {
     player_2_counter.text = getString(R.string.start_counter)
 
     setupSuitesValeUI()
+
+    winners_btn.setOnClickListener {
+      findNavController().navigate(R.id.action_gameFragment_to_scoresFragment)
+    }
 
     deal_btn.setOnClickListener {
 
@@ -78,7 +83,6 @@ class MainActivity : AppCompatActivity() {
           displayError()
         }
 
-
         player_1_deck_counter.text = mainViewModel.getPlayerDeckSize(player1).toString()
         player_2_deck_counter.text = mainViewModel.getPlayerDeckSize(player2).toString()
 
@@ -86,12 +90,11 @@ class MainActivity : AppCompatActivity() {
       } else {
         isGameOver()
       }
-
     }
   }
 
   private fun displayError() {
-    Snackbar.make(this@MainActivity, parent_container, getString(R.string.deal_card_error), Snackbar.LENGTH_SHORT).show()
+    Snackbar.make(requireContext(), parent_container, getString(R.string.deal_card_error), Snackbar.LENGTH_SHORT).show()
   }
 
   private fun getRoundWinner(player1Card: Card, player2Card: Card) {
@@ -148,7 +151,7 @@ class MainActivity : AppCompatActivity() {
     if (mainViewModel.checkForGameOver()) {
 
       val alertDialog: AlertDialog? = this.let {
-        val builder = AlertDialog.Builder(it)
+        val builder = AlertDialog.Builder(requireContext())
         builder.apply {
           setPositiveButton(
             getString(R.string.game_over_dialog_restart_btn_label)
@@ -210,5 +213,4 @@ class MainActivity : AppCompatActivity() {
     private const val KEY_3 = 3
     private const val KEY_4 = 4
   }
-
 }

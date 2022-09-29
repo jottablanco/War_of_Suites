@@ -12,8 +12,7 @@ This project was created using Android Studio Dolphin | 2021.3.1
 Details:
 --------
 
-I wanted to keep this game as simple as possible using just one ViewModel to keep the game aware of the Activity livecycle and keep scores and decks values even if player
-sents the app to background.
+I wanted to keep this game as simple as possible using just one ViewModel (Using MVVM) to keep the game aware of the Activity/Fragment livecycle and keep scores and decks values even if player sents the app to background.
 
 As you guys will see in the code, I kept a simple logic:
 
@@ -23,6 +22,14 @@ As you guys will see in the code, I kept a simple logic:
 * The UI consists of 2 ImageViews where the cards are dealt, 2 ImageViews with counters to simulate the players decks and two ImageViews with counters acting as discard piles. 
 * The scores for the players, cards on discard piles and players deck remaining cards are visible and updated at all times
 * The ViewModel is responsible for pretty much every operation on the game in order to keep the scores up-to-date
+
+- MVVM
+- Dependency Injection (Hilt)
+- Room Database
+- Repository Pattern
+- Use Case
+- LiveData
+- Flow
 
 -------------------
 A little sneak peek:

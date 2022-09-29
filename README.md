@@ -23,13 +23,18 @@ As you guys will see in the code, I kept a simple logic:
 * The scores for the players, cards on discard piles and players deck remaining cards are visible and updated at all times
 * The ViewModel is responsible for pretty much every operation on the game in order to keep the scores up-to-date
 
-- MVVM
+-------------------
+Main Architecture Components:
+-------------------
+
+- MVVM Design Pattern
 - Dependency Injection (Hilt)
 - Room Database
 - Repository Pattern
 - Use Case
 - LiveData
 - Flow
+- Navigation Component
 
 -------------------
 A little sneak peek:

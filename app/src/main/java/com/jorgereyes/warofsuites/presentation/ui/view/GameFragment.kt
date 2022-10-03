@@ -25,13 +25,11 @@ class GameFragment : Fragment() {
 
   private lateinit var suiteValuesMap: MutableMap<Int, SuiteName>
 
-  private val player1 = Player(id = UUID.randomUUID(), PlayerName.PLAYER_1)
-  private val player2 = Player(id = UUID.randomUUID(), PlayerName.PLAYER_2)
-
+  private lateinit var player1: Player
+  private lateinit var player2: Player
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,6 +40,9 @@ class GameFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     mainViewModel = (activity as MainActivity).mainViewModel
+    mainViewModel.createPlayers()
+    player1 = mainViewModel.player1
+    player2 = mainViewModel.player2
     mainViewModel.shuffleMainDeck()
     suiteValuesMap = mainViewModel.defineSuiteValue()
     mainViewModel.suitesValueMap = suiteValuesMap
@@ -98,24 +99,12 @@ class GameFragment : Fragment() {
   }
 
   private fun getRoundWinner(player1Card: Card, player2Card: Card) {
-    if (player1Card.cardValue > player2Card.cardValue) {
-      updateUI(player1, player1Card, player2Card)
-    } else if (player1Card.cardValue < player2Card.cardValue) {
-      updateUI(player2, player1Card, player2Card)
-    } else {
-      val keyPlayer1 = suiteValuesMap.filterValues { it == player1Card.suit.suiteName }.keys.first()
-      val keyPlayer2 = suiteValuesMap.filterValues { it == player2Card.suit.suiteName }.keys.first()
-
-      if (keyPlayer1 > keyPlayer2) {
-        updateUI(player1, player1Card, player2Card)
-      } else {
-        updateUI(player2, player1Card, player2Card)
-      }
-    }
+    val winnerTag = mainViewModel.getRoundWinner(player1Card, player2Card, suiteValuesMap)
+    updateUI(winnerTag, player1Card, player2Card)
   }
 
-  private fun updateUI(player: Player, player1Card: Card, player2Card: Card) {
-    when (player.playerTag) {
+  private fun updateUI(playerTag: PlayerName, player1Card: Card, player2Card: Card) {
+    when (playerTag) {
       PlayerName.PLAYER_1 -> {
         mainViewModel.addToPlayersDiscardsPile(player1Card, player2Card, player1)
         player_1_counter.text = "${mainViewModel.getPlayersRoundScore(player1)}"

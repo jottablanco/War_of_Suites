@@ -1,6 +1,7 @@
 package com.jorgereyes.warofsuites.presentation.viewModel
 
 import android.app.Application
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
@@ -9,6 +10,7 @@ import com.jorgereyes.warofsuites.data.model.*
 import com.jorgereyes.warofsuites.domain.usecase.GetScoresUseCase
 import com.jorgereyes.warofsuites.domain.usecase.SaveWinnerUseCase
 import kotlinx.coroutines.launch
+import java.util.*
 
 class MainViewModel constructor(
   application: Application,
@@ -19,11 +21,15 @@ class MainViewModel constructor(
 
   private val cardBuilder = CardBuilder()
   private var deck: Deck = Deck(cardBuilder)
-  var suitesValueMap: Map<Int, SuiteName> = mutableMapOf()
   private var player1Score: MutableList<Card> = mutableListOf()
   private var player2Score: MutableList<Card> = mutableListOf()
   private var player1Deck: MutableList<Card> = mutableListOf()
   private var player2Deck: MutableList<Card> = mutableListOf()
+
+  var suitesValueMap: Map<Int, SuiteName> = mutableMapOf()
+
+  lateinit var player1 : Player
+  lateinit var player2: Player
 
   fun defineSuiteValue(): MutableMap<Int, SuiteName> {
     var suiteValues = mutableMapOf<Int, SuiteName>()
@@ -48,6 +54,16 @@ class MainViewModel constructor(
 
   fun shuffleMainDeck() {
     deck.shuffleDeck()
+  }
+
+  @VisibleForTesting
+  fun getInGameDeck() : Deck {
+    return deck
+  }
+
+  fun createPlayers() {
+    player1 = Player(UUID.randomUUID(), PlayerName.PLAYER_1, 0)
+    player2 = Player(UUID.randomUUID(), PlayerName.PLAYER_2, 0)
   }
 
   fun createPlayersDecks() {
@@ -75,6 +91,23 @@ class MainViewModel constructor(
       }
     }
     return cardsMap
+  }
+
+  fun getRoundWinner(player1Card: Card, player2Card: Card, suitesValues: Map<Int, SuiteName>) : PlayerName {
+    return when {
+      player1Card.cardValue > player2Card.cardValue -> PlayerName.PLAYER_1
+      player1Card.cardValue < player2Card.cardValue -> PlayerName.PLAYER_2
+      else -> {
+        val keyPlayer1 = suitesValues.filterValues { it == player1Card.suit.suiteName }.keys.first()
+        val keyPlayer2 = suitesValues.filterValues { it == player2Card.suit.suiteName }.keys.first()
+
+        if (keyPlayer1 > keyPlayer2) {
+          PlayerName.PLAYER_1
+        } else {
+          PlayerName.PLAYER_2
+        }
+      }
+    }
   }
 
   fun addToPlayersDiscardsPile(player1Card: Card, player2Card: Card, player: Player) {
@@ -113,6 +146,7 @@ class MainViewModel constructor(
     player2Score.clear()
     player1Deck.clear()
     player2Deck.clear()
+    createPlayers()
     deck = Deck(cardBuilder)
     deck.shuffleDeck()
     createPlayersDecks()
